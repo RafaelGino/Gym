@@ -2,6 +2,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using CrossCuting.IoC.Extensions;
+using CrossCuting.IOC.Extensions;
+using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -26,6 +29,15 @@ namespace Gym
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+
+            var connectionString = Configuration.GetSection("ConnectionString").Value;
+            services.AddRepository(connectionString, "Infra.Data.Migrations")
+                .AddServices()
+                .AddDomainServices()
+                .AddCustomHttp()
+                .AddHttpClient()
+                .AddMediatR(typeof(Startup));
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

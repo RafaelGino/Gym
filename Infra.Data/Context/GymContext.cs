@@ -16,19 +16,19 @@ namespace Infra.Data.Context
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             //Default Schema
-            modelBuilder.HasDefaultSchema("PERFILWEB");
+            modelBuilder.HasDefaultSchema("Gym");
 
             // Entities mapping
 
             base.OnModelCreating(modelBuilder);
         }
 
-//#if DEBUG
-//        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-//        {
-//            optionsBuilder.UseLoggerFactory(LoggerFactory.Create(builder => builder.AddConsole()));
-//            base.OnConfiguring(optionsBuilder);
-//        }
-//#endif
+#if DEBUG
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            //optionsBuilder.UseLoggerFactory(LoggerFactory.Create(builder => builder.AddConsole()));
+            base.OnConfiguring(optionsBuilder);
+        }
+#endif
     }
 }
