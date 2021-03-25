@@ -17,6 +17,7 @@ namespace Infra.Data.Context
         {
             //Default Schema
             modelBuilder.HasDefaultSchema("Gym");
+            modelBuilder.ApplyConfiguration(new CustomerConfiguration());
 
             // Entities mapping
 

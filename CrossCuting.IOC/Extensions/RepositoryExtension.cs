@@ -1,4 +1,8 @@
-﻿using Infra.Data.Context;
+﻿using Domain.Repositories;
+using Infra.Data.Abstractions.Data;
+using Infra.Data.Context;
+using Infra.Data.Repositories;
+using Infra.Data.UnitOfWork;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using System;
@@ -14,11 +18,13 @@ namespace CrossCuting.IOC.Extensions
         {
             services.AddDbContext<GymContext>(options =>
             {
-
                 options.UseSqlServer(connectionString, sqlServerOptionsAction => sqlServerOptionsAction.MigrationsAssembly(migrationsAssemblyName));
-                //.UseLoggerFactory(new LoggerFactory(new[] { new Microsoft.Extensions.Logging.Debug.DebugLoggerProvider() }))
-
             });
+            services.AddScoped<IUnitOfWork, UnitOfWork>();
+
+            //repositories
+            services.AddScoped<ICustomerRepository, CustomerRepository>();
+
             return services;
         }
     }

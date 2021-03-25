@@ -1,10 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using Application.ViewModels;
+using System.Threading.Tasks;
 
 namespace Application.Interfaces
 {
     public interface ICustomerService
     {
+        Task<CustomerViewModel> GetById(long id);
     }
 }

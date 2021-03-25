@@ -1,4 +1,6 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using Application.Implementation;
+using Application.Interfaces;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace CrossCuting.IOC.Extensions
 {
@@ -6,8 +8,7 @@ namespace CrossCuting.IOC.Extensions
     {
         public static IServiceCollection AddServices(this IServiceCollection services)
         {
-            //services.AddScoped<IAnexoService, AnexoService>();
-            
+            services.AddScoped<ICustomerService, CustomerService>();
 
             return services;
         }
