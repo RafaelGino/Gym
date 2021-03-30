@@ -18,12 +18,13 @@ namespace CrossCuting.IOC.Extensions
         {
             services.AddDbContext<GymContext>(options =>
             {
-                options.UseSqlServer(connectionString, sqlServerOptionsAction => sqlServerOptionsAction.MigrationsAssembly(migrationsAssemblyName));
+                options.UseSqlServer(connectionString, sqlServerOptionsAction => sqlServerOptionsAction.MigrationsAssembly(migrationsAssemblyName)).EnableSensitiveDataLogging();
             });
             services.AddScoped<IUnitOfWork, UnitOfWork>();
 
             //repositories
             services.AddScoped<ICustomerRepository, CustomerRepository>();
+            services.AddScoped<IClassRepository, ClassRepository>();
 
             return services;
         }

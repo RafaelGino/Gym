@@ -4,6 +4,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using Application.Interfaces;
 using Application.ViewModels;
+using Application.ViewModels.Searchs;
+using CrossCuting.Http;
 using Domain.Abstractions.Notifications;
 using Gym.Base;
 using MediatR;
@@ -23,10 +25,31 @@ namespace Gym.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetCustomerById(long id)
+        public async Task<IActionResult> GetById(long id)
         {
             var result = await this.customerService.GetById(id);
             return base.Result(result);
+        }
+
+        [HttpPost("all")]
+        public async Task<IActionResult> GetAll([FromBody] RequestSearch<CustomerSearch> request)
+        {
+            var result = await this.customerService.GetAll(request);
+            return base.Result(result);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Insert([FromBody] CustomerViewModel customerViewModel)
+        {
+            var idInserido = await this.customerService.Insert(customerViewModel);
+            return base.Result(idInserido);
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> Delete(long id)
+        {
+            await this.customerService.Delete(id);
+            return base.Result();
         }
     }
 }

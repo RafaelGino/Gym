@@ -9,6 +9,7 @@ namespace CrossCuting.IOC.Extensions
         public static IServiceCollection AddServices(this IServiceCollection services)
         {
             services.AddScoped<ICustomerService, CustomerService>();
+            services.AddScoped<IClassService, ClassService>();
 
             return services;
         }

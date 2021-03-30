@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Infra.Data.Migrations.Migrations
 {
     [DbContext(typeof(GymContext))]
-    [Migration("20210325002037_Initial")]
+    [Migration("20210328175947_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -67,9 +67,7 @@ namespace Infra.Data.Migrations.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<bool>("Active")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("bit")
-                        .HasDefaultValue(true)
                         .HasColumnName("Active");
 
                     b.Property<string>("Address")
@@ -93,8 +91,8 @@ namespace Infra.Data.Migrations.Migrations
                         .HasColumnName("FirstName");
 
                     b.Property<decimal?>("Height")
-                        .HasPrecision(2)
-                        .HasColumnType("decimal(2,2)")
+                        .HasPrecision(3, 2)
+                        .HasColumnType("decimal(3,2)")
                         .HasColumnName("Height");
 
                     b.Property<string>("LastName")
@@ -114,8 +112,8 @@ namespace Infra.Data.Migrations.Migrations
                         .HasColumnName("SecondaryPhone");
 
                     b.Property<decimal?>("Weight")
-                        .HasPrecision(2)
-                        .HasColumnType("decimal(2,2)")
+                        .HasPrecision(5, 2)
+                        .HasColumnType("decimal(5,2)")
                         .HasColumnName("Weight");
 
                     b.Property<string>("ZipCode")

@@ -25,10 +25,14 @@ namespace Gym
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
-            //services.AddAutoMapper(typeof(Startup));
-            var mappingConfig = new MapperConfiguration(mc =>
+
+            var mappingConfig = new MapperConfiguration(mc => 
             {
-                mc.AddProfile(new CustomerMapper());
+                mc.AddMaps(new[] {
+                    typeof(CustomerMapper),
+                    typeof(ClassMapper)
+                });
+                
             });
             IMapper mapper = mappingConfig.CreateMapper();
             services.AddSingleton(mapper);
@@ -44,7 +48,6 @@ namespace Gym
                 .AddCustomHttp()
                 .AddHttpClient()
                 .AddMediatR(typeof(Startup));
-
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -54,9 +57,9 @@ namespace Gym
             {
                 app.UseDeveloperExceptionPage();
             }
-            
+
             app.UseSwagger();
-            
+
             app.UseSwaggerUI(c =>
             {
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "Gym API V1");

@@ -38,13 +38,13 @@ namespace Infra.Data.Migrations.Migrations
                     LastName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Age = table.Column<int>(type: "int", nullable: true),
                     Address = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Weight = table.Column<decimal>(type: "decimal(2,2)", precision: 2, nullable: true),
-                    Height = table.Column<decimal>(type: "decimal(2,2)", precision: 2, nullable: true),
+                    Weight = table.Column<decimal>(type: "decimal(5,2)", precision: 5, scale: 2, nullable: true),
+                    Height = table.Column<decimal>(type: "decimal(3,2)", precision: 3, scale: 2, nullable: true),
                     PrimaryPhone = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     SecondaryPhone = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Email = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     ZipCode = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Active = table.Column<bool>(type: "bit", nullable: false, defaultValue: true),
+                    Active = table.Column<bool>(type: "bit", nullable: false),
                     CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
