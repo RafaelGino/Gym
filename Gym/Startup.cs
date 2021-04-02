@@ -9,11 +9,14 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using AutoMapper;
 using Application.Mappers;
+using Microsoft.Extensions.DependencyInjection;
+using Newtonsoft.Json;
 
 namespace Gym
 {
     public class Startup
     {
+        private const string policyCorsGym = "policyCorsGym";
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -24,7 +27,8 @@ namespace Gym
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllers();
+
+            
 
             var mappingConfig = new MapperConfiguration(mc => 
             {
@@ -48,6 +52,20 @@ namespace Gym
                 .AddCustomHttp()
                 .AddHttpClient()
                 .AddMediatR(typeof(Startup));
+
+            services.AddCors(options =>
+            {
+                options.AddPolicy(name: policyCorsGym,
+                    builder =>
+                    {
+                        builder
+                        .AllowAnyHeader()
+                        .AllowAnyMethod()
+                        .AllowAnyOrigin();
+                    });
+            });
+
+            services.AddControllers().AddNewtonsoftJson(o => o.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -59,7 +77,7 @@ namespace Gym
             }
 
             app.UseSwagger();
-
+            app.UseCors(policyCorsGym);
             app.UseSwaggerUI(c =>
             {
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "Gym API V1");

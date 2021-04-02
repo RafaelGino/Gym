@@ -1,12 +1,15 @@
 ﻿using Domain.Abstractions.Entity;
 using Domain.Entities;
 using Domain.Enumerators;
+using System;
 using System.Collections.Generic;
 
 namespace Application.ViewModels
 {
-    public class CustomerViewModel: Entity
-    {        
+    public class CustomerViewModel
+    {
+        public long Id { get; set; }
+        public DateTime CreatedDate { get; set; }
         public string FirstName { get;  set; }
         public string MiddleName { get;  set; }
         public string LastName { get;  set; }
